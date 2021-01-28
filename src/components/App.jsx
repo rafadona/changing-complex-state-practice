@@ -1,37 +1,36 @@
 import React from "react";
 
 function App() {
-  // const [fName, setfName] = React.useState("");
-  // const [lName, setlName] = React.useState("");
 
-  // function handleChange(event) {
-  //   setfName(event.target.value);
-  // }
-
-  // function handleChangelName(event) {
-  //   setlName(event.target.value);
-  // }
-
-  const [fullName, setFullName] = React.useState({
+  const [contact, setContact] = React.useState({
     fName: "",
-    lName: ""
+    lName: "",
+    email: ""
   });
 
   function handleChange(event) {
     const { value, name } = event.target;
 
-    setFullName(prevValue => {
+    setContact(prevValue => {
       if (name === "fName") {
         return {
           fName: value,
-          lName: prevValue.lName
+          lName: prevValue.lName,
+          email: prevValue.email
         }
 
       } else if (name === "lName") {
         return {
           fName: prevValue.fName,
-          lName: value
-        };
+          lName: value,
+          email: prevValue.email
+        }
+      } else if (name === "email") {
+        return {
+          fName: prevValue.fName,
+          lName: prevValue.lName,
+          email: value
+        }
       }
     });
 
@@ -40,20 +39,27 @@ function App() {
   return (
     <div className="container">
       <h1>
-        Hello {fullName.fName} {fullName.lName}
+        Hello {contact.fName} {contact.lName}
       </h1>
+      <p>{contact.email}</p>
       <form>
         <input
           onChange={handleChange}
           name="fName"
           placeholder="First Name"
-          value={fullName.fName}
+          value={contact.fName}
         />
         <input
           onChange={handleChange}
           name="lName"
           placeholder="Last Name"
-          value={fullName.lName}
+          value={contact.lName}
+        />
+        <input
+          onChange={handleChange}
+          name="email"
+          placeholder="Email"
+          value={contact.email}
         />
         <button>Submit</button>
       </form>
